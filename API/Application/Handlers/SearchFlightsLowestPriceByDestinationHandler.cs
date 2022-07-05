@@ -29,19 +29,18 @@ namespace API.Application.Handlers
         {
             var viewModel = new ListFlightWithLowestPriceViewModel();
 
-            var flightDetails = await _flightRepository.GetFlightsByDestinationAsync(request._destinationAirportId);
+            var pageNumber = request.PageNumber <= 0 ? 1 : request.PageNumber;
+            var pageSize = request.PageSize <= 0 ? 10 : request.PageSize;
+
+            var flightDetails = await _flightRepository.GetFlightsByDestinationAsync(request._destinationAirportId, pageNumber, pageSize);
 
             if (flightDetails.Any())
             {
-                var lowestPrice = await _flightRepository.GetLowestPriceFlightsByDestinationAsync(request._destinationAirportId);
+                var lowestPrice = await _flightRateRepository.GetLowestPriceFlightsByDestinationAsync(request._destinationAirportId);
 
                 viewModel = new ListFlightWithLowestPriceViewModel
                 {
-                    LowestFlightPrice = new LowestPriceViewModel
-                    {
-                        Id = lowestPrice.Flight.Id,
-                        Price = lowestPrice.Price.Value
-                    },
+                    LowestFlightPrice = lowestPrice,
                     FlightsDetails = _mapper.Map<List<FlightViewModel>>(flightDetails)
                 };
             }

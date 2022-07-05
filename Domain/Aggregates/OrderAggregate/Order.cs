@@ -10,6 +10,7 @@ namespace Domain.Aggregates.OrderAggregate
     {
         [Key]
         public Guid Id { get; set; }
+
         public Guid FlightId { get; set; }
         public Flight Flight { get; set; }
         public decimal Price { get; set; }
@@ -17,7 +18,7 @@ namespace Domain.Aggregates.OrderAggregate
         public OrderEnum State { get; set; } = OrderEnum.Draft;
         public int NumberOfPassangers { get; set; }
 
-        public Order(Guid flightId, decimal price, int numberOfPassangers) 
+        public Order(Guid flightId, decimal price, int numberOfPassangers)
         {
             FlightId = flightId;
             Price = price;

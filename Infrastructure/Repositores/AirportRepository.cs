@@ -1,15 +1,15 @@
-using System;
-using System.Threading.Tasks;
 using Domain.Aggregates.AirportAggregate;
 using Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repositores
 {
     public class AirportRepository : IAirportRepository
     {
         private readonly FlightsContext _context;
-        
+
         public IUnitOfWork UnitOfWork
         {
             get { return _context; }
@@ -19,10 +19,11 @@ namespace Infrastructure.Repositores
         {
             _context = context;
         }
-        
-        public Airport Add(Airport airport)
+
+        public async Task<Airport> AddAsync(Airport airport)
         {
-            return _context.Airports.Add(airport).Entity;
+            await _context.AddAsync(airport);
+            return airport;
         }
 
         public void Update(Airport airport)

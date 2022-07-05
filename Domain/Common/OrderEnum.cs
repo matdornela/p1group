@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Domain.Common
 {
@@ -9,6 +6,7 @@ namespace Domain.Common
     {
         [Description("Draft")]
         Draft = 0,
+
         [Description("Confirmed")]
         Confirmed = 1
     }

@@ -18,14 +18,13 @@ namespace API.Application.Handlers
         {
             _airportRepository = airportRepository;
             _mapper = mapper;
-
         }
 
         public async Task<AirportViewModel> Handle(CreateAirportCommand request, CancellationToken cancellationToken)
         {
-            var airport = _airportRepository.Add(new Airport(request.Code, request.Name));
+            var airport = await _airportRepository.AddAsync(new Airport(request.Code, request.Name));
 
-            await _airportRepository.UnitOfWork.SaveEntitiesAsync();
+            await _airportRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
             var data = _mapper.Map<AirportViewModel>(airport);
 

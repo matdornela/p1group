@@ -4,7 +4,6 @@ using Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Domain.Aggregates.FlightAggregate
@@ -16,7 +15,6 @@ namespace Domain.Aggregates.FlightAggregate
 
         public Guid _originAirportId;
         public Guid _destinationAirportId;
-
         public DateTimeOffset Departure { get; private set; }
         public DateTimeOffset Arrival { get; private set; }
 

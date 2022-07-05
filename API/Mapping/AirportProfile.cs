@@ -1,7 +1,6 @@
 using API.Application.ViewModels;
 using AutoMapper;
 using Domain.Aggregates.AirportAggregate;
-using Domain.Aggregates.FlightAggregate;
 
 namespace API.Mapping
 {

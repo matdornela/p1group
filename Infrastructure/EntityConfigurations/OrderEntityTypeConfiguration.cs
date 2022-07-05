@@ -1,4 +1,3 @@
-using Domain.Aggregates.AirportAggregate;
 using Domain.Aggregates.OrderAggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,7 +16,6 @@ namespace Infrastructure.EntityConfigurations
 
             builder.Property("NumberOfPassangers")
             .IsRequired();
-
         }
     }
 }

@@ -16,7 +16,7 @@ namespace API
             CreateHostBuilder(args)
                 .Build()
                 .ConnectToDatabase(5, TimeSpan.FromSeconds(5))
-                .MigrateDatabase()
+                //.MigrateDatabase()
                 .SeedData()
                 .Run();
         }

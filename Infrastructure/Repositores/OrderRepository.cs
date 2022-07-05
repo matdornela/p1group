@@ -2,6 +2,7 @@
 using Domain.SeedWork;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositores
@@ -20,19 +21,26 @@ namespace Infrastructure.Repositores
             _context = context;
         }
 
-        public Order Add(Order order)
+        public Task<List<Order>> GetAllAsync()
+        {
+            return _context.Orders.ToListAsync();
+        }
+
+        public async Task<Order> AddAsync(Order order)
 
         {
             order.State = Domain.Common.OrderEnum.Draft;
-            return _context.Orders.Add(order).Entity;
+            await _context.AddAsync(order);
+            return order;
         }
 
-        public async Task Confirm(Guid orderId)
+        public async Task<Order> Confirm(Guid orderId)
         {
             var order = await _context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
             if (order != null)
                 order.State = Domain.Common.OrderEnum.Confirmed;
             Update(order);
+            return order;
         }
 
         public void Update(Order order)

@@ -1,11 +1,11 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.SeedWork;
 using MediatR;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    static class MediatorExtension
+    internal static class MediatorExtension
     {
         public static async Task DispatchDomainEventsAsync(this IMediator mediator, FlightsContext ctx)
         {

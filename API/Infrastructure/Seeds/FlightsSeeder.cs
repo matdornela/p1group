@@ -1,8 +1,7 @@
-using System;
-using System.Linq;
-using Domain.Aggregates.AirportAggregate;
 using Domain.Aggregates.FlightAggregate;
 using Infrastructure;
+using System;
+using System.Linq;
 
 namespace API.Infrastructure.Seeds
 {
@@ -29,7 +28,7 @@ namespace API.Infrastructure.Seeds
                 var departure = new DateTimeOffset(
                     random.Next(2021, 2023), random.Next(1, 12), 01, random.Next(0, 23),
                     random.Next(0, 59), 0, TimeSpan.Zero);
-                
+
                 FlightsContext.Flights.Add(new Flight(
                     departure,
                     departure.AddHours(random.Next(1, 16)),

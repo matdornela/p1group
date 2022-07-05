@@ -45,7 +45,8 @@ namespace API.Application.Handlers
 
                 await _orderRepository.Confirm(order.Id);
                 await _flightRateRepository.UpdateAvailablity(flightRate.Id, order.NumberOfPassangers);
-                await _orderRepository.UnitOfWork.SaveEntitiesAsync();
+                await _orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+
                 viewModel = _mapper.Map<OrderViewModel>(order);
             }
 

@@ -1,18 +1,20 @@
 using Domain.Exceptions;
 using Domain.SeedWork;
+using System;
 
 namespace Domain.Aggregates.AirportAggregate
 {
     public class Airport : Entity, IAggregateRoot
     {
-        public string Code { get; private set; }
+        public Guid Id { get; set; }
+        public string Code { get; set; }
 
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         public Airport()
         {
         }
-        
+
         public Airport(string code, string name) : this()
         {
             if (code.Length != 3)

@@ -25,27 +25,30 @@ namespace API
                 {
                     var context = services.GetService<FlightsContext>();
 
-                    new AirportsSeeder(context).Seed();
-                    new FlightsSeeder(context).Seed();
-                    new FlightRatesSeeder(context).Seed();
-                    Console.WriteLine("Database seeded");
+                    //if (!context.Airports.AnyAsync().Result)
+                    //{
+                        new AirportsSeeder(context).Seed();
+                        new FlightsSeeder(context).Seed();
+                        new FlightRatesSeeder(context).Seed();
+                        Console.WriteLine("Database seeded");
+                    //}
                 }
             }
 
             return host;
         }
 
-        public static IHost MigrateDatabase(this IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var context = services.GetService<FlightsContext>();
-                context.Database.Migrate();
-            }
+        //public static IHost MigrateDatabase(this IHost host)
+        //{
+        //    using (var scope = host.Services.CreateScope())
+        //    {
+        //        var services = scope.ServiceProvider;
+        //        var context = services.GetService<FlightsContext>();
+        //        context.Database.Migrate();
+        //    }
 
-            return host;
-        }
+        //    return host;
+        //}
 
         public static IHost ConnectToDatabase(this IHost host, int maxRetryCount, TimeSpan retryDelay)
         {

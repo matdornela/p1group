@@ -22,37 +22,34 @@ namespace Infrastructure.Repositores
             _context = context;
         }
 
-        public async Task<List<Flight>> GetFlightsByDestinationAsync(Guid airportDestinationId)
+        public async Task<List<Flight>> GetFlightsByDestinationAsync(Guid airportDestinationId, int pageNumber, int pageSize)
         {
+            var startingRecordNumber = pageSize * (pageNumber - 1);
+
             var data = await _context.Flights
                 .Where(x => x._destinationAirportId == airportDestinationId)
+                .Skip(startingRecordNumber)
+                .Take(pageSize)
                 .AsNoTracking()
                 .ToListAsync();
             return data;
         }
 
-        public async Task<FlightRate> GetLowestPriceFlightsByDestinationAsync(Guid airportDestinationId)
+        public async Task<List<Flight>> GetAllAsync()
         {
-            {
-
-                var flightRates = await _context.FlightRates
-                    .Include(x => x.Flight)
-                    .Where(x => x.Flight._destinationAirportId == airportDestinationId)
-                    .ToListAsync();
-                  
-                  var data = flightRates.GroupBy(x => x.Flight._destinationAirportId)
-                    .SelectMany(g => g.Where(x => x.Price.Value == g.Min(y => y.Price.Value)))
-                    .FirstOrDefault();
-
-                return data;
-            }
+            return await _context.Flights.ToListAsync();
         }
 
-        public async Task<FlightRate> CheckFlightPriceChangesAsync(Guid flightId)
+        public async Task<Flight> AddAsync(Flight flight)
+
         {
-            var data = await _context.FlightRates.Include(x => x.Flight)
-                .FirstOrDefaultAsync(x => x.Id == flightId);
-            return data;
+            await _context.AddAsync(flight);
+            return flight;
+        }
+
+        public async Task<Flight> GetAsync(Guid flightId)
+        {
+            return await _context.Flights.FirstOrDefaultAsync(x => x.Id == flightId);
         }
     }
 }

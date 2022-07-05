@@ -11,7 +11,7 @@ namespace Domain.Exceptions
         public AirportDomainException(string message) : base(message)
         {
         }
-        
+
         public AirportDomainException(string message, Exception innerException) : base(message, innerException)
         {
         }

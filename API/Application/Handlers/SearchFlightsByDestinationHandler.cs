@@ -23,7 +23,10 @@ namespace API.Application.Handlers
 
         public async Task<List<FlightViewModel>> Handle(SearchFlightsByDestinationQuery request, CancellationToken cancellationToken)
         {
-            var data = await _flightRepository.GetFlightsByDestinationAsync(request._destinationAirportId);
+            var pageNumber = request.PageNumber <= 0 ? 1 : request.PageNumber;
+            var pageSize = request.PageSize <= 0 ? 10 : request.PageSize;
+
+            var data = await _flightRepository.GetFlightsByDestinationAsync(request._destinationAirportId, pageNumber, pageSize);
             return _mapper.Map<List<FlightViewModel>>(data);
         }
     }

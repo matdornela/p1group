@@ -1,12 +1,12 @@
+using Domain.SeedWork;
 using System;
 using System.Collections.Generic;
-using Domain.SeedWork;
 
 namespace Domain.Common
 {
     public class Price : ValueObject
     {
-        public decimal Value { get; private set; }
+        public decimal Value { get; set; }
         public Currency Currency { get; private set; }
 
         protected Price()

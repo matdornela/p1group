@@ -1,12 +1,12 @@
+using Domain.SeedWork;
 using System;
 using System.Threading.Tasks;
-using Domain.SeedWork;
 
 namespace Domain.Aggregates.AirportAggregate
 {
     public interface IAirportRepository : IRepository<Airport>
     {
-        Airport Add(Airport airport);
+        Task<Airport> AddAsync(Airport airport);
 
         void Update(Airport airport);
 

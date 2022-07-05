@@ -1,7 +1,7 @@
 ﻿using API.Application.Queries;
+using API.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,14 +12,10 @@ namespace API.Controllers
     [ApiController]
     public class FlightsController : ControllerBase
     {
-        private readonly ILogger<FlightsController> _logger;
         private readonly IMediator _mediator;
 
-        public FlightsController(
-            ILogger<FlightsController> logger,
-            IMediator mediator)
+        public FlightsController(IMediator mediator)
         {
-            _logger = logger;
             _mediator = mediator;
         }
 
@@ -27,14 +23,14 @@ namespace API.Controllers
         [Route("SearchLowestPriceFlightByDestination")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> SearchLowestPriceFlightByDestination(Guid _destinationAirportId)
+        [ProducesResponseType(typeof(ListFlightWithLowestPriceViewModel), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> SearchLowestPriceFlightByDestination(Guid _destinationAirportId, int pageNumber, byte pageSize)
         {
             if (_destinationAirportId == Guid.Empty)
             {
                 return BadRequest();
             }
-            var query = new SearchFlightsLowestPriceByDestinationQuery(_destinationAirportId);
+            var query = new SearchFlightsLowestPriceByDestinationQuery(_destinationAirportId, pageNumber, pageSize);
             var data = await _mediator.Send(query);
 
             if (data.FlightsDetails == null)

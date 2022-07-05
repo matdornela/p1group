@@ -1,6 +1,6 @@
-using System;
 using Domain.Aggregates.FlightAggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Infrastructure.EntityConfigurations
 {
@@ -9,6 +9,8 @@ namespace Infrastructure.EntityConfigurations
         public override void Configure(EntityTypeBuilder<FlightRate> builder)
         {
             base.Configure(builder);
+
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
             builder.Property<Guid>("FlightId").IsRequired();
             builder.Property("Name").IsRequired();
@@ -19,8 +21,6 @@ namespace Infrastructure.EntityConfigurations
                 a.Property<Guid>("FlightRateId");
                 a.WithOwner();
             });
-
-            
         }
     }
 }

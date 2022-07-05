@@ -1,8 +1,7 @@
 ﻿using API.Application.Commands;
-using AutoMapper;
+using API.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -13,12 +12,10 @@ namespace API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly ILogger<OrdersController> _logger;
         private readonly IMediator _mediator;
 
-        public OrdersController(ILogger<OrdersController> logger, IMediator mediator, IMapper mapper)
+        public OrdersController(IMediator mediator)
         {
-            _logger = logger;
             _mediator = mediator;
         }
 
@@ -26,7 +23,7 @@ namespace API.Controllers
         [Route("Create")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(OrderViewModel), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Create([FromBody] CreateOrderCommand command)
         {
             if (command.NumberOfPassangers == 0 || command.FlightId == Guid.Empty)

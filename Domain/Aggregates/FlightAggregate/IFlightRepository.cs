@@ -6,8 +6,13 @@ namespace Domain.Aggregates.FlightAggregate
 {
     public interface IFlightRepository
     {
-        Task<List<Flight>> GetFlightsByDestinationAsync(Guid airportDestinationId);
-        Task<FlightRate> CheckFlightPriceChangesAsync(Guid flightId);
-        Task<FlightRate> GetLowestPriceFlightsByDestinationAsync(Guid airportDestinationId);
+        Task<List<Flight>> GetFlightsByDestinationAsync(Guid airportDestinationId, int pageNumber,
+            int pageSize);
+
+        Task<List<Flight>> GetAllAsync();
+
+        Task<Flight> AddAsync(Flight flight);
+
+        Task<Flight> GetAsync(Guid flightId);
     }
 }

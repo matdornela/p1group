@@ -1,9 +1,9 @@
-using System.IO;
-using System.Reflection;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Reflection;
 
 namespace API.Infrastructure
 {

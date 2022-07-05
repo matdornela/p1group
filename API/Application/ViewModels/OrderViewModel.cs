@@ -1,9 +1,4 @@
-﻿using Domain.Aggregates.FlightAggregate;
-using Domain.Common;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using Newtonsoft.Json.Converters;
-using System;
-using System.Text.Json.Serialization;
+﻿using System;
 
 namespace API.Application.ViewModels
 {
@@ -13,6 +8,7 @@ namespace API.Application.ViewModels
         public Guid FlightId { get; set; }
         public DateTime Date { get; set; }
         public string State { get; set; }
+        public decimal Price { get; set; }
         public int NumberOfPassangers { get; set; }
     }
 }

@@ -8,7 +8,9 @@ namespace Infrastructure.EntityConfigurations
         public override void Configure(EntityTypeBuilder<Airport> builder)
         {
             base.Configure(builder);
-            
+
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
+
             builder.Property("Code")
                 .IsRequired();
 

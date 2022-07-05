@@ -1,8 +1,8 @@
+using Domain.Aggregates.AirportAggregate;
+using Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.Aggregates.AirportAggregate;
-using Infrastructure;
 
 namespace API.Infrastructure.Seeds
 {

@@ -1,5 +1,6 @@
 ﻿using Domain.SeedWork;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Aggregates.OrderAggregate
@@ -8,10 +9,12 @@ namespace Domain.Aggregates.OrderAggregate
     {
         Task<Order> GetAsync(Guid orderId);
 
-        Order Add(Order order);
+        Task<List<Order>> GetAllAsync();
+
+        Task<Order> AddAsync(Order order);
 
         void Update(Order order);
 
-        Task Confirm(Guid orderId);
+        Task<Order> Confirm(Guid orderId);
     }
 }

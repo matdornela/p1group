@@ -4,7 +4,7 @@ namespace API.Application.ViewModels
 {
     public class ListFlightWithLowestPriceViewModel
     {
-        public LowestPriceViewModel LowestFlightPrice { get; set; }
-        public List<FlightViewModel> FlightsDetails { get; set; }  
+        public decimal LowestFlightPrice { get; set; }
+        public List<FlightViewModel> FlightsDetails { get; set; }
     }
 }

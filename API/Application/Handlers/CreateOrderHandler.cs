@@ -13,28 +13,31 @@ namespace API.Application.Handlers
     {
         private readonly IOrderRepository _orderRepository;
 
-        private readonly IFlightRateRepository _flightRateRepository;
+        private readonly IFlightRepository _flightRepository;
 
         private readonly IMapper _mapper;
 
-        public CreateOrderHandler(IOrderRepository orderRepository, IFlightRepository flightRepository, IFlightRateRepository flightRateRepository, IMapper mapper)
+        public CreateOrderHandler(IOrderRepository orderRepository, IMapper mapper, IFlightRepository flightRepository)
         {
             _orderRepository = orderRepository;
-            _flightRateRepository = flightRateRepository;
+            _flightRepository = flightRepository;
             _mapper = mapper;
+        }
 
+        public CreateOrderHandler(IFlightRepository flightRepository)
+        {
+            _flightRepository = flightRepository;
         }
 
         public async Task<OrderViewModel> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
+            var flight = await _flightRepository.GetAsync(request.FlightId);
+            var viewModel = new OrderViewModel();
 
-            var flightRates = await _flightRateRepository.GetRateByFlightAsync(request.FlightId);
-            OrderViewModel viewModel = new OrderViewModel();
-
-            if(flightRates != null)
+            if (flight != null)
             {
-                var order = _orderRepository.Add(new Order(request.FlightId, flightRates.Price.Value, request.NumberOfPassangers));
-                await _orderRepository.UnitOfWork.SaveEntitiesAsync();
+                var order = await _orderRepository.AddAsync(new Order(request.FlightId, request.Price, request.NumberOfPassangers));
+                await _orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
                 viewModel = _mapper.Map<OrderViewModel>(order);
             }
 

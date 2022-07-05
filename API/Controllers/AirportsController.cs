@@ -1,4 +1,5 @@
 ﻿using API.Application.Commands;
+using API.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,7 +26,7 @@ namespace API.Controllers
         [HttpPost]
         [Route("Store")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(AirportViewModel), (int)HttpStatusCode.Created)]
         public async Task<IActionResult> Store([FromBody] CreateAirportCommand command)
         {
             if (string.IsNullOrEmpty(command.Code) || string.IsNullOrEmpty(command.Name))
