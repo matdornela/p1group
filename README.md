@@ -15,7 +15,7 @@ We like to use some modern best practices in this assignment and try to point yo
     - Persistence ignorance
     - SOLID
 - An API that can
-    - Search the flights for a destination (TEST)
+    - Search the flights for a destination
         - Must show the flight details
         - Must show the lowest price for each found flight
     - Build up an order
